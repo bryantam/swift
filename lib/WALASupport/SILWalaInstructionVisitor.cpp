@@ -296,6 +296,7 @@ jobject SILWalaInstructionVisitor::visitAllocExistentialBoxInst(AllocExistential
       llvm::outs() << "AEBI " << AEBI << "\n";
       llvm::outs() << "\tConcreteType " << AEBI->getFormalConcreteType() << "\n";
       llvm::outs() << "\tExistentialType " << AEBI->getExistentialType() << "\n";
+      llvm::outs() << "\tSize Of AEBI: " << sizeof(AllocExistentialBoxInst) << "\n";
     }
 
     auto name = "ExistentialBox:" + 
