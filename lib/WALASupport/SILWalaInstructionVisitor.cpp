@@ -454,7 +454,8 @@ jobject SILWalaInstructionVisitor::visitProjectExistentialBoxInst(ProjectExisten
   if (Print) {
     llvm::outs() << "PEBI " << PEBI << "\n";
     llvm::outs() << "Operand " << PEBI->getOperand() << "\n";
-    llvm::outs() << "Operand addr " << PEBI->getOperand().getOpaqueValue() << "\n";
+    llvm::outs() << "Operand addr " << &(PEBI->getOperand()) << "\n";
+    llvm::outs() << "Operand opaque value " << PEBI->getOperand().getOpaqueValue() << "\n";
   }
   if (SymbolTable.has(PEBI->getOperand().getOpaqueValue())) {
     SymbolTable.duplicate(((char *)PEBI) + 0x48, SymbolTable.get(PEBI->getOperand().getOpaqueValue()).c_str());
