@@ -294,6 +294,7 @@ jobject SILWalaInstructionVisitor::visitAllocBoxInst(AllocBoxInst *ABI) {
 jobject SILWalaInstructionVisitor::visitAllocExistentialBoxInst(AllocExistentialBoxInst *AEBI) {    
     if (Print) {
       llvm::outs() << "AEBI " << AEBI << "\n";
+      llvm::outs() << "AEBI deref " << *AEBI << "\n";
       llvm::outs() << "\tConcreteType " << AEBI->getFormalConcreteType() << "\n";
       llvm::outs() << "\tExistentialType " << AEBI->getExistentialType() << "\n";
       llvm::outs() << "\tSize Of AEBI: " << sizeof(AllocExistentialBoxInst) << "\n";
@@ -451,11 +452,13 @@ jobject SILWalaInstructionVisitor::visitProjectBoxInst(ProjectBoxInst *PBI) {
 }
 
 jobject SILWalaInstructionVisitor::visitProjectExistentialBoxInst(ProjectExistentialBoxInst *PEBI) {
+  void *addr = PEBI->getOperand().getOpaqueValue();
   if (Print) {
     llvm::outs() << "PEBI " << PEBI << "\n";
     llvm::outs() << "Operand " << PEBI->getOperand() << "\n";
     llvm::outs() << "Operand addr " << PEBI->getOperand().getOpaqueValue() << "\n";
     llvm::outs() << "Deref " << *((ValueBase *) PEBI->getOperand().getOpaqueValue()) << "\n";
+    llvm::outs() << "Deref " << *((AllocExistentialBoxInst *) ((char *) addr - 0x48)) << "\n";
   }
   if (SymbolTable.has(PEBI->getOperand().getOpaqueValue())) {
     SymbolTable.duplicate(((char *)PEBI) + 0x48, SymbolTable.get(PEBI->getOperand().getOpaqueValue()).c_str());
