@@ -297,7 +297,7 @@ jobject SILWalaInstructionVisitor::visitAllocExistentialBoxInst(AllocExistential
       llvm::outs() << "\tConcreteType " << AEBI->getFormalConcreteType() << "\n";
       llvm::outs() << "\tExistentialType " << AEBI->getExistentialType() << "\n";
       llvm::outs() << "\tSize Of AEBI: " << sizeof(AllocExistentialBoxInst) << "\n";
-      llvm::outs() << "\t+0x48: " << *((SILValue *) (((char *)AEBI) + 0x48))  << "\n";
+      // llvm::outs() << "\t+0x48: " << *((SILValue *) (((char *)AEBI) + 0x48))  << "\n";
     }
 
     auto name = "ExistentialBox:" + 
@@ -455,6 +455,7 @@ jobject SILWalaInstructionVisitor::visitProjectExistentialBoxInst(ProjectExisten
     llvm::outs() << "PEBI " << PEBI << "\n";
     llvm::outs() << "Operand " << PEBI->getOperand() << "\n";
     llvm::outs() << "Operand addr " << PEBI->getOperand().getOpaqueValue() << "\n";
+    llvm::outs() << "Deref " << *((ValueBase *) PEBI->getOperand().getOpaqueValue()) << "\n";
   }
   if (SymbolTable.has(PEBI->getOperand().getOpaqueValue())) {
     SymbolTable.duplicate(((char *)PEBI) + 0x48, SymbolTable.get(PEBI->getOperand().getOpaqueValue()).c_str());
