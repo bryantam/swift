@@ -298,6 +298,9 @@ jobject SILWalaInstructionVisitor::visitAllocExistentialBoxInst(AllocExistential
       llvm::outs() << "\tConcreteType " << AEBI->getFormalConcreteType() << "\n";
       llvm::outs() << "\tExistentialType " << AEBI->getExistentialType() << "\n";
       llvm::outs() << "\tSize Of AEBI: " << sizeof(AllocExistentialBoxInst) << "\n";
+      llvm::outs() << "\tSize Of SingleValueInstruction: " << sizeof(SingleValueInstruction) << "\n";
+      llvm::outs() << "\tSize Of SILInstruction: " << sizeof(SILInstruction) << "\n";
+      llvm::outs() << "\tSize Of ValueBase: " << sizeof(ValueBase) << "\n";
       llvm::outs() << "\t+0x48: " << *((ValueBase *) (((char *)AEBI) + 0x48))  << "\n";
     }
 
